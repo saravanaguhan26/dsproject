@@ -1,0 +1,27 @@
+=== Machine Learning Preprocessing Report ===
+
+1. Features Identified
+Numerical Features (13):
+time_in_hospital, num_lab_procedures, num_procedures, num_medications, number_outpatient, number_emergency, number_inpatient, number_diagnoses, total_previous_visits, active_diabetes_meds_count, has_previous_inpatient_visit, has_previous_emergency_visit, has_previous_outpatient_visit
+
+Categorical Features (37):
+race, gender, age, admission_type_id, admission_source_id, medical_specialty, diag_1, diag_2, diag_3, max_glu_serum, A1Cresult, metformin, repaglinide, nateglinide, chlorpropamide, glimepiride, acetohexamide, glipizide, glyburide, tolbutamide, pioglitazone, rosiglitazone, acarbose, miglitol, troglitazone, tolazamide, insulin, glyburide-metformin, glipizide-metformin, glimepiride-pioglitazone, metformin-rosiglitazone, metformin-pioglitazone, change, diabetesMed, age_group, stay_category, medication_complexity
+
+2. Preprocessing Methods Used
+- Numerical Pipeline: SimpleImputer (median) followed by StandardScaler.
+- Categorical Pipeline: SimpleImputer (constant='missing') followed by OneHotEncoder (handle_unknown='ignore').
+
+3. Train/Test Split
+- Split Ratio: 80% Train / 20% Test
+- Stratification: Applied based on the target variable 'readmission_risk'.
+- Training Samples: 81412
+- Testing Samples: 20354
+
+4. Target Distribution
+- Train distribution: 0=88.84%, 1=11.16%
+- Test distribution: 0=88.84%, 1=11.16%
+
+5. Leakage Prevention
+- Excluded direct target and original 'readmitted' columns.
+- The preprocessor object was strictly fit() ONLY on the X_train dataset.
+- X_test was purely transform()ed, preventing data leakage.

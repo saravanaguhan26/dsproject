@@ -1,0 +1,31 @@
+=== Feature Engineering Report ===
+
+Feature Name: total_previous_visits
+Formula/Logic: number_outpatient + number_emergency + number_inpatient
+Reason: Combines various past interactions into a single metric representing overall prior healthcare utilization. The EDA showed higher visits strongly correlate with readmission.
+----------------------------------------
+Feature Name: age_group
+Formula/Logic: Grouped original age brackets: [0-40) -> Young_Adults, [40-70) -> Middle_Aged, [70-100) -> Seniors
+Reason: Reduces dimensionality of age and captures broad lifecycle stages which might relate to overall health and recovery rates better than narrow 10-year bands.
+----------------------------------------
+Feature Name: stay_category
+Formula/Logic: 1-3 days -> 'Short', 4-7 days -> 'Medium', >7 days -> 'Long'
+Reason: Provides a categorical representation of stay length, allowing models (like tree-based models) to pick up non-linear risk associated with distinct duration phases.
+----------------------------------------
+Feature Name: medication_complexity
+Formula/Logic: Count active diabetes meds. 0 -> 'None', 1 -> 'Simple', >1 -> 'Complex'
+Reason: Multiple concurrent active medications likely indicates advanced or harder-to-control diabetes, correlating with higher readmission risk.
+----------------------------------------
+Feature Name: has_previous_inpatient_visit
+Formula/Logic: 1 if number_inpatient > 0 else 0
+Reason: Provides a clear binary signal for the model regarding prior inpatient history, which EDA showed was highly predictive.
+----------------------------------------
+Feature Name: has_previous_emergency_visit
+Formula/Logic: 1 if number_emergency > 0 else 0
+Reason: Captures the distinct behavioral or health-state signal of requiring emergency care previously.
+----------------------------------------
+Feature Name: has_previous_outpatient_visit
+Formula/Logic: 1 if number_outpatient > 0 else 0
+Reason: Identifies if the patient has had routine/outpatient interactions in the past year.
+----------------------------------------
+Data Leakage Check: No target variable ('readmission_risk' or 'readmitted') was used in creating these features. No future information is utilized.

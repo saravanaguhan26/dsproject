@@ -1,0 +1,31 @@
+=== Data Cleaning Report ===
+Initial Dataset Shape: (101766, 50)
+
+--- What was removed ---
+Due to high missing values: ['weight']
+Due to being identifiers: ['encounter_id', 'patient_nbr']
+Due to constant values (useless): ['examide', 'citoglipton']
+Due to possible data leakage: ['discharge_disposition_id', 'payer_code']
+Duplicate rows removed: 0
+
+--- What was retained ---
+Retained 44 columns, including the original 'readmitted' column.
+Note: max_glu_serum and A1Cresult were retained. The 'None' values in these columns signify 'Not Tested', which is clinically relevant and not an actual missing value.
+
+--- How missing values were handled ---
+1. '?' and standard NA strings were treated as missing values.
+2. Features with >50% missing values (like weight) were dropped.
+3. Remaining categorical features with missing values (e.g., race, medical_specialty, diag_1/2/3) were filled with the string 'Unknown'.
+4. Any remaining numerical features with missing values were filled with their median (none expected).
+
+--- How the target was created ---
+New column 'readmission_risk' created based on 'readmitted':
+ - '<30' was mapped to 1 (readmitted within 30 days)
+ - '>30' was mapped to 0 (not readmitted within 30 days)
+ - 'NO' was mapped to 0 (no readmission)
+
+--- Class distribution of 'readmission_risk' ---
+0 (No / >30 days): 90409 samples
+1 (<30 days): 11357 samples
+
+Final Dataset Shape: (101766, 44)

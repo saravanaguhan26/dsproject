@@ -1,0 +1,86 @@
+PASS|Dataset|Original CSV exists|
+PASS|Dataset|CSV loads with correct shape (>100k rows, 50 cols)|(101766, 50)
+PASS|Dataset|Original CSV untouched (still has '?' values)|
+PASS|Cleaning|Cleaned CSV exists|
+PASS|Cleaning|Cleaned CSV loads|(101766, 44)
+PASS|Cleaning|No '?' values in cleaned data|
+PASS|Cleaning|readmission_risk column created|
+PASS|Cleaning|Original readmitted column preserved|
+PASS|Cleaning|readmission_risk contains only 0 and 1|
+PASS|Cleaning|Identifier 'encounter_id' removed|
+PASS|Cleaning|Identifier 'patient_nbr' removed|
+PASS|Cleaning|Leakage column 'discharge_disposition_id' removed|
+PASS|Cleaning|Leakage column 'payer_code' removed|
+PASS|Cleaning|No unexpected NaN columns in cleaned data|
+PASS|EDA|Chart exists: B_target_distribution.png|
+PASS|EDA|Chart exists: C_age_distribution.png|
+PASS|EDA|Chart exists: C_age_vs_risk.png|
+PASS|EDA|Chart exists: D_hospital_stay_dist.png|
+PASS|EDA|Chart exists: D_hospital_stay_vs_risk.png|
+PASS|EDA|Chart exists: E_previous_utilization.png|
+PASS|EDA|Chart exists: F_num_medications_vs_risk.png|
+PASS|EDA|Chart exists: F_insulin_vs_risk.png|
+PASS|EDA|Chart exists: G_procedure_analysis.png|
+PASS|EDA|Chart exists: H_diagnosis_analysis.png|
+PASS|EDA|Chart exists: I_race_vs_risk.png|
+PASS|EDA|Chart exists: I_gender_vs_risk.png|
+PASS|EDA|Chart exists: J_correlation_heatmap.png|
+PASS|EDA|EDA summary contains actual row count|
+PASS|Feature Eng.|Feature-engineered CSV exists|
+PASS|Feature Eng.|Feature 'total_previous_visits' created|
+PASS|Feature Eng.|Feature 'age_group' created|
+PASS|Feature Eng.|Feature 'stay_category' created|
+PASS|Feature Eng.|Feature 'active_diabetes_meds_count' created|
+PASS|Feature Eng.|Feature 'medication_complexity' created|
+PASS|Feature Eng.|Feature 'has_previous_inpatient_visit' created|
+PASS|Feature Eng.|Feature 'has_previous_emergency_visit' created|
+PASS|Feature Eng.|Feature 'has_previous_outpatient_visit' created|
+PASS|Feature Eng.|Target column present (not used as input feature)|
+PASS|Preprocessing|Preprocessor joblib exists|
+PASS|Preprocessing|Preprocessor loads correctly|ColumnTransformer
+PASS|Preprocessing|X_train.npy exists|
+PASS|Preprocessing|X_test.npy exists|
+PASS|Preprocessing|y_train.npy exists|
+PASS|Preprocessing|y_test.npy exists|
+PASS|Preprocessing|80/20 split correct (20.0% test)|
+PASS|Models|Logistic Regression loads|LogisticRegression
+PASS|Models|Decision Tree loads|DecisionTreeClassifier
+PASS|Models|Random Forest loads|RandomForestClassifier
+PASS|Models|XGBoost loads|XGBClassifier
+PASS|Models|model_results.csv has all required columns|
+PASS|Models|No NaN in model metrics|
+PASS|Selection|best_model_info.txt exists|
+PASS|Selection|Best model is Logistic Regression|
+PASS|Selection|Metric 'Recall' in report|
+PASS|Selection|Metric 'F1-score' in report|
+PASS|Selection|Metric 'ROC-AUC' in report|
+PASS|Selection|Model comparison chart exists|
+PASS|Pipeline|medpredict_pipeline.pkl exists|
+PASS|Pipeline|Pipeline loads successfully|Steps: ['preprocessor', 'classifier']
+PASS|Pipeline|feature_names.txt exists (50 features)|
+PASS|Pipeline|confusion_matrix.png exists|
+PASS|Pipeline|roc_curve.png exists|
+PASS|Pipeline|feature_importance.png exists|
+PASS|Prediction|High-risk senior, multiple prior inpatient|pred=1, prob(risk)=0.597
+PASS|Prediction|Low-risk young adult, no prior visits|pred=0, prob(risk)=0.342
+PASS|Prediction|Middle-aged, insulin change, moderate stay|pred=0, prob(risk)=0.473
+PASS|Prediction|Elderly, long stay, complex meds|pred=1, prob(risk)=0.550
+PASS|Prediction|Caucasian female, short stay, no prior|pred=0, prob(risk)=0.379
+PASS|Prediction|Pipeline raises error on completely wrong input|
+PASS|Explainability|Feature names match attribution count|2384 features
+PASS|Streamlit App|app/app.py exists|
+PASS|Streamlit App|Loads medpredict_pipeline.pkl|
+PASS|Streamlit App|Uses st.cache_resource|
+PASS|Streamlit App|Has Patient Prediction page|
+PASS|Streamlit App|Has Dashboard page|
+PASS|Streamlit App|Has EDA page|
+PASS|Streamlit App|Has Model Performance page|
+PASS|Streamlit App|Has Feature Importance page|
+PASS|Streamlit App|Has About page|
+PASS|Streamlit App|Has disclaimer|
+PASS|Streamlit App|Uses actual pipeline predict|
+PASS|Streamlit App|Shows probability|
+PASS|Streamlit App|Has HIGH READMISSION RISK|
+PASS|Streamlit App|Has LOW READMISSION RISK|
+PASS|Streamlit App|Has explainability section|
+PASS|Streamlit App|No hardcoded fake predictions|
